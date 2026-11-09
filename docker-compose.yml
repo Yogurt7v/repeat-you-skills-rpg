@@ -1,0 +1,9 @@
+services:
+  db:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=Yogurt7v
+      - POSTGRES_PASSWORD=152070
+      - POSTGRES_DB=rpg_db

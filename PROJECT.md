@@ -56,7 +56,7 @@ RPG-платформа для изучения frontend, backend и деплоя
 
 | Слой | Выбор |
 |---|---|
-| Фреймворк | **Next.js 15, App Router** |
+| Фреймворк | **Next.js 16, App Router** |
 | Язык | **TypeScript, strict mode** |
 | Стили | **CSS Modules + vanilla CSS** (без Tailwind, без UI-китов) |
 | Клиентское состояние | **Redux Toolkit** |
