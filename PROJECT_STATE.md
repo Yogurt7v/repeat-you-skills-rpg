@@ -1,28 +1,28 @@
 # Состояние проекта
 
 ## Текущая итерация
-Итерация 0 — каркас. В процессе.
+Итерация 1 — первая глава. В процессе.
 
 ## Ветка / глава
-—
+Фронтенд / Введение (примерная первая глава)
 
-## Сделано
-- `package.json` приведён к стеку проекта: Next.js 16.4.5, React 19.3.0, TypeScript strict, Tailwind удалён.
-- `tsconfig.json`: `strict: true`.
-- Docker установлен (29.9.3).
-- `docker-compose.yml` создан и прошёл валидацию (`docker compose config` ✔).
-- Контейнер PostgreSQL поднят и остановлен (`docker compose down`).
+## Сделано (Итерация 0 — завершена)
+- `package.json`: Next.js 16.4.5, React 19.3, TS strict, без Tailwind
+- Docker + PostgreSQL контейнер (запущен)
+- Prisma схема: User, Branch, Chapter, Progress
+- Prisma Client v7.10.1 сгенерирован
+- Auth.js + Credentials + PrismaAdapter + JWT + bcrypt + Zod
+- Страница «Карта мира» (`/map`) с 3 заблокированными ветками
+- Server Components по умолчанию, Client Components только где нужен интерактив
 
-## Болит
-- Нет `prisma/schema.prisma`.
-- Нет `.env` с `DATABASE_URL`.
-- Нет Auth.js Credentials.
-- Нет страницы «Карта мира» с тремя заблокированными ветками.
+## Болит (Итерация 1 — в процессе)
+- Prisma-схема не расширена для Итерации 1 (нужны Node, Boss, Question, NodeCompletion, BossAttempt, Achievement, UserAchievement, LeaderboardOptIn)
+- Нет Server Actions для получения главы/узлов
+- Нет страницы главы (`app/(game)/[branch]/[chapter]/page.tsx`)
+- Нет логики прогресса (XP, узлы, трофеи, босс, XP, ачивки)
 
 ## Блокер
-Устранён (Docker установлен).
+Нет
 
 ## Следующий шаг
-Поднять контейнер: `docker compose up -d`. Создать `.env` с `DATABASE_URL`. Создать `prisma/schema.prisma` с моделями `User`, `Branch`, `Chapter`, `Progress`. Запустить `npx prisma generate`.
-
-(Далее — Auth.js Credentials и страница «Карта мира».)
+Расширить `prisma/schema.prisma` для Итерации 1 (добавить Node, Boss, Question, NodeCompletion, BossAttempt, Achievement, UserAchievement, LeaderboardOptIn). Выполнить `npx prisma generate`.

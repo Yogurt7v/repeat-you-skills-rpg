@@ -7,22 +7,31 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(cuid())
-  email     String    // unique
-  passwordHash String
-  name      String?
-  image     String?
-  role      String?
-  createdAt DateTime  @default(now())
+  id            String            @id @default(cuid())
+  email         String            @unique
+  passwordHash  String
+  name          String?
+  image         String?
+  role          String?
+  createdAt     DateTime          @default(now())
+
+  progress      Progress[]
+  bossAttempts  BossAttempt[]
+  achievements  UserAchievement[]
+  leaderboard   LeaderboardOptIn?
 }
 
+
 model Branch {
-  id        String   @id @default(cuid())
-  slug      String   @unique
-  title     String
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
   description String
-  order     Int
+  order       Int
+
+  chapters    Chapter[]
 }
+
 
 model Chapter {
   id          String   @id @default(cuid())
@@ -32,13 +41,113 @@ model Chapter {
   theory      String
   scroll      String
   order       Int
+
+  branch      Branch       @relation(fields: [branchId], references: [id])
+  nodes       Node[]
+  boss        Boss?
+  progress    Progress[]
 }
 
+
 model Progress {
+  id            String        @id @default(cuid())
+  userId        String
+  chapterId     String
+  status        String
+  currentNodeId String?
+  updatedAt     DateTime      @default(now())
+
+  user          User          @relation(fields: [userId], references: [id])
+  chapter       Chapter       @relation(fields: [chapterId], references: [id])
+  currentNode   Node?         @relation("CurrentNode", fields: [currentNodeId], references: [id])
+  completions   NodeCompletion[]
+}
+
+model Node {
+  id          String   @id @default(cuid())
+  chapterId   String
+  title       String
+  description String
+  order       Int
+
+  chapter     Chapter         @relation(fields: [chapterId], references: [id])
+  completions NodeCompletion[]
+  currentInProgress Progress[] @relation("CurrentNode")
+}
+
+
+model Boss {
+  id        String   @id @default(cuid())
+  chapterId String   @unique
+  hp        Int
+  title     String
+
+  chapter   Chapter      @relation(fields: [chapterId], references: [id])
+  questions Question[]
+  attempts  BossAttempt[]
+}
+
+
+model Question {
+  id           String   @id @default(cuid())
+  bossId       String
+  text         String
+  options      Json
+  correctOption Int
+  explanation  String
+
+  boss         Boss   @relation(fields: [bossId], references: [id])
+}
+
+
+
+model NodeCompletion {
+  id          String   @id @default(cuid())
+  progressId  String
+  nodeId      String
+  trophy      String
+  completedAt DateTime @default(now())
+
+  progress    Progress @relation(fields: [progressId], references: [id])
+  node        Node @relation(fields: [nodeId], references: [id])
+}
+
+model BossAttempt {
   id          String   @id @default(cuid())
   userId      String
-  chapterId   String
-  status      String
-  currentNodeId String
-  updatedAt   DateTime @default(now())
+  bossId      String
+  hpLeft      Int
+  won         Boolean
+  createdAt   DateTime @default(now())
+
+  user        User @relation(fields: [userId], references: [id])
+  boss        Boss @relation(fields: [bossId], references: [id])
+}
+
+model Achievement {
+  id          String   @id @default(cuid())
+  slug        String    @unique
+  title       String
+  description String
+  icon        String
+
+  users       UserAchievement[]
+}
+
+model UserAchievement {
+  id          String   @id @default(cuid())
+  userId      String
+  achievementId String
+  unlockedAt   DateTime @default(now())
+
+  user        User @relation(fields: [userId], references: [id])
+  achievement Achievement @relation(fields: [achievementId], references: [id])
+  @@unique([userId, achievementId])
+}
+
+model LeaderboardOptIn {
+  userId      String @id
+  optedInAt   DateTime @default(now())
+
+  user        User @relation(fields: [userId], references: [id])
 }
