@@ -15,9 +15,14 @@
 - Страница «Карта мира» (`/map`) с 3 заблокированными ветками
 - Server Components по умолчанию, Client Components только где нужен интерактив
 
+## Сделано (Итерация 1 — в процессе)
+- Prisma-схема расширена для Итерации 1:
+  - Node, Boss, Question, NodeCompletion, BossAttempt, Achievement, UserAchievement, LeaderboardOptIn
+  - Все связи (relations) настроены корректно
+- `npx prisma generate` ✔
+- Server Actions: `actions/game.ts` — `getBranchBySlug`, `getChapterWithNodes` ✔
+
 ## Болит (Итерация 1 — в процессе)
-- Prisma-схема не расширена для Итерации 1 (нужны Node, Boss, Question, NodeCompletion, BossAttempt, Achievement, UserAchievement, LeaderboardOptIn)
-- Нет Server Actions для получения главы/узлов
 - Нет страницы главы (`app/(game)/[branch]/[chapter]/page.tsx`)
 - Нет логики прогресса (XP, узлы, трофеи, босс, XP, ачивки)
 
@@ -25,4 +30,4 @@
 Нет
 
 ## Следующий шаг
-Расширить `prisma/schema.prisma` для Итерации 1 (добавить Node, Boss, Question, NodeCompletion, BossAttempt, Achievement, UserAchievement, LeaderboardOptIn). Выполнить `npx prisma generate`.
+Создать страницу главы `app/(game)/[branch]/[chapter]/page.tsx` с теорией, картой узлов и кнопкой «Начать узел».
