@@ -8,16 +8,21 @@
 
 ## Сделано
 - `package.json` приведён к стеку проекта: Next.js 16.4.5, React 19.3.0, TypeScript strict, Tailwind удалён.
-- `tsconfig.json`: `strict: true` (соответствует конвенциям).
-- Один коммит `init commit`, ветка `master`.
+- `tsconfig.json`: `strict: true`.
+- Docker установлен (29.9.3).
+- `docker-compose.yml` создан и прошёл валидацию (`docker compose config` ✔).
+- Контейнер PostgreSQL поднят и остановлен (`docker compose down`).
 
 ## Болит
-- Нет Docker, PostgreSQL, Prisma, Auth.js.
-- Нет страницы «Карта мира» с тремя заблокированными ветками.
 - Нет `prisma/schema.prisma`.
+- Нет `.env` с `DATABASE_URL`.
+- Нет Auth.js Credentials.
+- Нет страницы «Карта мира» с тремя заблокированными ветками.
 
 ## Блокер
-Docker не установлен (`command not found: docker`). Нельзя поднять PostgreSQL в контейнере.
+Устранён (Docker установлен).
 
 ## Следующий шаг
-Установить Docker Desktop для macOS, проверить `docker --version`, затем поднять PostgreSQL через `docker compose up -d` и создать `prisma/schema.prisma`.
+Поднять контейнер: `docker compose up -d`. Создать `.env` с `DATABASE_URL`. Создать `prisma/schema.prisma` с моделями `User`, `Branch`, `Chapter`, `Progress`. Запустить `npx prisma generate`.
+
+(Далее — Auth.js Credentials и страница «Карта мира».)

@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String    @id @default(cuid())
+  email     String    // unique
+  passwordHash String
+  name      String?
+  image     String?
+  role      String?
+  createdAt DateTime  @default(now())
+}
+
+model Branch {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  description String
+  order     Int
+}
+
+model Chapter {
+  id          String   @id @default(cuid())
+  branchId    String
+  slug        String   @unique
+  title       String
+  theory      String
+  scroll      String
+  order       Int
+}
+
+model Progress {
+  id          String   @id @default(cuid())
+  userId      String
+  chapterId   String
+  status      String
+  currentNodeId String
+  updatedAt   DateTime @default(now())
+}

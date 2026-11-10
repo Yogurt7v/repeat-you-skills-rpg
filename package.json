@@ -6,19 +6,24 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "docker:up": "docker compose up -d",
+    "dev:all": "docker compose up -d & next dev"
   },
   "dependencies": {
     "next": "16.4.5",
+    "next-auth": "^4.24.15",
     "react": "19.3.0",
     "react-dom": "19.3.0"
   },
   "devDependencies": {
+    "@prisma/client": "^7.10.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.5",
+    "prisma": "^7.10.1",
     "typescript": "^5"
   }
 }
