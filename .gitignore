@@ -23,7 +23,9 @@
 # misc
 .DS_Store
 *.pem
-.omo/*
+.omo
+.codingschool
+.*
 
 # debug
 npm-debug.log*
